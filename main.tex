@@ -1,14 +1,443 @@
-\documentclass{article}
-\usepackage[utf8]{inputenc}
+\documentclass[a4paper, 11pt]{article}
+\usepackage{comment} % enables the use of multi-line comments (\ifx \fi) 
+\usepackage{fullpage} % changes the margin
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs} % For formal tables
 
-\title{TA2}
-\author{zankhanapatel1995.zp }
-\date{April 2019}
+\usepackage[ruled]{algorithm2e} % For algorithms
+\renewcommand{\algorithmcfname}{ALGORITHM}
 
 \begin{document}
+%Header-Make sure you update this information!!!!
+\noindent
+\large\textbf{Homework TA2} \hfill \textbf{Zankhanaben Ashish Patel} \\
+\normalsize COMP6651 \hfill \textbf{40067635} \\
+Prof. Tiberiu Popa \hfill Due Date: 12/04/19 
 
-\maketitle
 
-\section{Introduction}
+\section{22.2 - 8}
+Let us Assume that $x$ and $y$ are 2 endpoints of the path in tree t who has the diameter. Let us assume random vertex in tree T called $s$ such that distance from s to $x$ and $y$ are greatest. So that we can generate diameter from vertices $x$, $y$ and $s$. \\
+We will prove above statement with proof of contradiction. Let's assume one vertex $p$ , which is not on the path of $x$ and $y$. The distance from $s$ to $p$ is  farthest.
+\begin{equation}
+\label{eq1}
+\delta(s,x) \le \delta(s,p)
+\end{equation}
+\begin{equation}
+\label{eq2}
+\delta(s,y) \le \delta(s,p)
+\end{equation}
+Let's assume there is another vertex $c$ on the path of $x$ and $y$ and $c$ is on the tree, which minimizes $\delta(s,c)$.\\
+We will have  $\delta(s,x) = \delta(s,c) + \delta(c,x).$\\
+Same way $ \delta(s,y) = \delta(s,c) + \delta(c,y).$\\
+As vertex $c$ is on path $x$ and $y$ we can say that,
+\begin{equation}
+\label{eq3}
+\delta(c,x) + \delta(c,y) = \delta(x,y)
+\end{equation}
+$$\delta(x,y) = \delta(s,x) + \delta(s,y)$$
+\begin{equation}
+\label{eq4}
+\delta(x,y) = \delta(s,c) + \delta(c,x) + \delta(s,c) + \delta(c,y)
+\end{equation}
+from \ref{eq3} and \ref{eq4}, we can say that,
+\begin{equation}
+\delta(s,x) + \delta(s,y) = 2 \delta(s,c) + \delta(x,y) 
+                          = \delta(s,c) + \delta(c,x) + \delta(s,c) + \delta(c,y)
+\end{equation}
+$$\therefore \delta(s,x) + \delta(s,y) \leq \delta(s,c) + \delta(c,x) + \delta(s,c) + \delta(c,y)$$
+$$\therefore \delta(x,y) \leq \delta(x,y) + 2 \delta(s,c)$$
+From \ref{eq4} we can write that,
+$$\delta(x,y) = \delta(s,x) + \delta(s,c) + \delta(c,y)$$
+From \ref{eq1} we know that $\delta(s,x) \le \delta(s,p)$
+$$\delta(x,y) \leq \delta(s,p) + \delta(s,c) + \delta(c,y)$$
 
+
+\section{Solve the following problems from the textbook :}
+
+
+\begin{equation}
+\label{eq2}
+\therefore (f(n)+g(n))/2 \leq max(f(n),g(n))
+\end{equation}
+Thus, 
+\begin{equation}
+\label{eq3}
+c_{1}\cdot(f(n),g(n)) \leq max(f(n),g(n))
+\end{equation}
+using equations~(\ref{eq2}) and (\ref{eq3}), $c_{1} = 1/2$.\\
+It is always true that,\\
+\begin{equation}
+\label{eq4}
+max(f(n),g(n)) \leq (f(n)+g(n))
+\end{equation}
+\begin{equation}
+\label{eq5}
+max(f(n),g(n)) \leq c_{2}\cdot(f(n)+g(n))
+\end{equation}
+Using equations (\ref{eq4}) and (\ref{eq5}), $c_{2} = 1.$\newline
+From above derivations, We get,
+$$0\le 1/2\cdot(f(n)+g(n)) \leq max(f(n),g(n)) \leq 1\cdot(f(n)+g(n))$$
+hence proved, $$max(f(n),g(n)) = \Theta(f(n)+g(n))$$
+
+
+\subsection*{\underline{Exe : 3.1-2}}
+As given,
+$$0 \le c_{1}\cdot n^b \le (n+a)^b \le c_{2}\cdot n^b,\forall n\ge n_{0}.$$
+For $c_{1}\cdot n^b \le (n+a)^b$\newline
+Let, $c_{1}=1$
+$$\therefore n^b \le (n+a)^b, \forall n \ge 1$$
+Now, for $(n+a)^b \le c_{2}\cdot n^b$
+$$n^b \cdot (1+\tfrac{a}{n})^b \le (1+a)^b \cdot n^b,\forall n \ge 1$$   
+$\therefore$ Real constants,
+$$c_{1}=1, c_{2}=(1+a)^b , \forall n \ge 1.$$
+
+
+\subsection*{\underline{Exe : 3.2-4}}
+According to Cormen book, function $f(n)$ is polynomically bounded if $f(n) = O(n^k)$ for some constant k.\\
+\textbf{For,$ \lceil \lg n \rceil ! $}\\
+By taking proof of contradiction, let's assume that our function is polynomically bounded, where exists constant $ c,k and n_{0}$.
+$$f(n)=O(n^k)$$
+$$\therefore f(n) \le c \cdot n^k$$
+$$\lceil \log n \rceil ! \le c \cdot n^k$$
+By taking $n=2^b$,
+$$\lceil \log 2^b \rceil ! \le c \cdot (2^{k \cdot b})$$
+$$\therefore b ! \le c \cdot (2^{k \cdot b})$$
+Above equation will never true.\\
+Since, factorial function is not exponentially bounded,and we cannot find such $c$ that makes our condition true.\\
+$\therefore \lceil \lg n \rceil ! $ \textbf{ is not polynomically bounded}. \\
+\textbf{For,$ \lceil \lg \lg n \rceil ! $}\\
+Again taking proof of contradiction,\\
+Assume $n=2^{2^k}$,
+$$ \lceil \lg \lg 2^{2^k} \rceil ! \le c \cdot (2^{2^k}) $$
+$$\therefore k! \le c \cdot 2^{2^k}$$ 
+To prove prove above equation, let's take $\log$ both side,\\
+$\therefore log(k!) \le 2^k$, because $\log_{2}2 =1$.\\
+Now let's consider below inequalities to prove above equation to be true.
+$$ \log(k!) < \log(k^k) < k\log k < 2^k $$
+Which is true $\forall k \ge 1$, and $c=1$.\\
+$\therefore \lceil \lg \lg n \rceil ! $ \textbf{is polynomically bounded.}
+
+\subsection*{\underline{Exe : 3.4}}
+\subsection*{a)}
+Answer : False
+\begin{equation}
+\label{eq6}
+f(n) \le c \cdot g(n)
+\end{equation}
+\begin{equation}
+\label{eq7}
+g(n) = O(f(n))
+\end{equation}
+$\exists c $ such that (\ref{eq6}) holds true.\\
+Now if $g(n)=O(f(n)) \implies g(n) = c \cdot (f(n))$\\
+To make this condition to be true, there is not exist any c to make both equation true together.\\
+$\therefore$ Let's prove by example,\\
+$2^n = O(3^n)$ but $3^n \ne O(2^n)$
+
+\subsection*{b)}
+Answer : False\\
+Let's prove by contradiction. Considering given conjecture to be true.
+$$\therefore c_{1} \cdot min(f(n)+g(n)) \le (f(n)+g(n)) \le c_{2} \cdot min(f(n)+g(n))$$
+For, $(f(n)+g(n)) \le c_{2} \cdot min(f(n)+g(n))$\\
+Above conjecture cannot be true for $f(n) = n^3$ and $g(n)=n$.
+$$n^3 + n \le c_{2} \cdot min(n^3,n) = c_{2} \cdot n$$
+Which will never turns into true.
+
+\subsection*{c)}
+Answer : True\\
+$f(n) = O(g(n), \exists c, n_{0} $ such that \\
+$f(n) \le c \cdot g(n)$ and $n \ge n_{0}$ . $(f(n) \ge 1) $ is given.\\
+Taking log both side,\\
+$ \log (f(n)) \le \log (c \cdot g(n))$
+\begin{equation}
+\label{eq8}
+\log(f(n)) \le \log c + \log(g(n))
+\end{equation}
+As given $f(n) \ge 1 $ and $\lg (g(n)) \ge 1 $. Both preserve after taking log also.\\ So, we need to find k such that, Using (\ref{eq8}) where,
+$$k \log (g(n)) \ge \log c + \log (g(n))$$ Since $\log (g(n)) \ge 1 $
+$$\therefore k \ge \log c +1 $$
+So, $f(n) \ge k \log (g(n))$ will always true.
+
+\subsection*{d)}
+Answer : False
+Let's assume $f(n) =  2n$ and $g(n)=n$\\
+For above scenario $f(n) = O(g(n))$ is true.\\
+Now, Let's check for $$2^{f(n)} = O(2^{g(n)})$$
+$$2^{f(n)} \le c \cdot 2^{g(n)} , \forall n \ge n_{0}$$
+$$2^{2n} \le c \cdot 2^n$$
+$$4^n \le c \cdot 2^n$$
+$$2^n \le c , \forall n \ge n_{0}$$
+Which cannot be possible since c is constant.\\
+$\therefore$ This conjecture is False.
+
+\subsection*{e)}
+Answer : False.\\
+Let, $$f(n) = \frac{1}{n}$$
+$$\therefore \frac {1}{n} \le c \cdot \frac{1}{n^2}$$
+$$ 1 \le c \cdot \frac {1}{n}$$
+We have to find $n \ge n_{0}$ and $c$ such that these inequalities always hold. Since c is constant and n is variable, we cannot find threshold point, such that this condition always hold. So it's false.
+
+\subsection*{f)}
+Answer : True\\
+For,
+$$f(n) = O(g(n))$$
+$$f(n) \le c \cdot g(n)$$
+\begin{equation}
+\label{eq9}
+\therefore g(n) \ge \frac {f(n)}{c}  
+\end{equation}
+For,
+$$g(n) = \Omega (f(n))$$
+\begin{equation}
+\label{eq10}
+g(n) \ge c \cdot f(n)
+\end{equation}
+By comparing both equations (\ref{eq9}) and (\ref{eq10}) \\
+$g(n)$ is always bigger.So this conjecture is true.
+
+\subsection*{g)}
+Answer: False \\
+By taking proof of contradiction, let's assume that given conjecture is true.
+$$\therefore 0 \le c_{1} \cdot f(\frac{n}{2}) \le f(n) \le c_{2} \cdot f(\frac{n}{2}) , \exists c_{1}, c_{2} \, and \, n \ge n_{0}$$
+Let's take $f(n) = 2^{2n}$. (Same as 3.4 d) 
+$$\therefore c_{1} \cdot 2^{\frac{2n}{2}} \le 2^{2n} \le c_{2} \cdot 2^{\frac{2n}{2}}$$
+$$c_{1} \cdot 2^{\frac{2n}{2}} \le 4^{n} \le c_{2} \cdot 2^n$$
+Now, $4^n \le c_{2} \cdot 2^n $ will never holds true for any $c_{2} \, and \, n \ge n_{0}$. Therefore, given conjecture is false.
+
+\subsection*{\underline{Exe : 4.5-1}}
+\subsection*{a)}
+$T(n) = 2\,T(\frac{n}{4}) +1 $ \\
+$\implies a=2, b=4, f(n) = 1 , n^{\log_{b}a} = n^{\frac{1}{2}} = \sqrt{n}$ \\
+Since,\\
+$f(n) = O(n^{\log_{b}a - \epsilon})$\\
+$\phantom{f(n)} = O(n^{\log_{4}2 - \frac{1}{2}})$ for $ \epsilon = \frac{1}{2}.$\\
+We can apply master theorem case-1.\\
+To conclude the solution, $T(n) = \Theta(n^{\log_{b}a})$
+$$T(n) = \Theta (\sqrt{n})$$
+
+\subsection*{b)}
+$T(n) = 2T(\frac{n}{4}) + \sqrt{n}.$\\
+$ n=2, b=4, f(n)=n^{\frac{1}{2}},n^{\log_{4}2}=n^{\frac{1}{2}} $\\
+Case-2 of master theorem will apply since,\\
+$f(n)= \Theta(n^{\log_{b}a}) = \Theta (n^{\frac{1}{2}})$\\
+Thus, the solution to the recurrence is,
+$$T(n) = \Theta(n^{\log_{b}a}\lg n) = \Theta(\sqrt{n}\lg n)$$
+
+\subsection*{c)}
+$T(n) = 2T(\frac{n}{4}) + n .$\\
+$ n=2, b=4, f(n)=n \, ,n^{\log_{4}2}=n^{\frac{1}{2}} = O(\sqrt{n}) $\\
+Since $f(n) = \Omega(n^{\log_{4}2 + \epsilon})$ Where $\epsilon=\frac{1}{2}$\\
+Case-3 Applies, Sufficiently large n and $c<1$ we'll check regularity condition.\\
+$af(\frac{n}{b}) = 2(\frac{n}{4}) = \frac{n}{2} \le c \cdot f(n)$\\
+As $f(n)=n$, We can take $c=\frac{1}{2}$ which is less than 1.\\
+So, by case-3 the solution to the recurrence is,
+$$T(n) = \Theta (f(n)) = \Theta(n)$$
+
+\subsection*{d)}
+$T(n) = 2T(\frac{n}{4}) + n^2 .$\\
+$ n=2, b=4, f(n)=n^2,n^{\log_{4}2}=n^{\frac{1}{2}} $\\
+Since $f(n) = \Omega(n^{\log_{4}2 + \epsilon})$ Where $\epsilon=\frac{3}{2}$\\
+Case-3 Applies, Sufficiently large n and $c<1$ we'll check regularity condition.\\
+$af(\frac{n}{b}) = 2(\frac{n}{4})^2 = \frac{n}{8} \le c \cdot f(n)$\\
+As $f(n)=n^2$, We can take $c=\frac{1}{8}$ which is less than 1.\\
+So, by case-3 the solution to the recurrence is,
+$$T(n) = \Theta (f(n)) = \Theta(n^2)$$
+
+\subsection*{\underline{Exe : 4.5-5}}
+Let's take $a=1, b=5, f(n)= 5n$ So, $n^{\log_{5}1} = 0$.\\
+Since $f(n) = \Omega(n^{\log_{b}a + \epsilon}) , \epsilon = 1$\\
+Case-3 Applies, Sufficiently large n and $c<1$ we'll check regularity condition.\\
+$af(\frac{n}{b}) = 1(\frac{5n}{5}) = n \le c \cdot f(n)$\\
+As $f(n)= 5n$, We will have $c=1$ which is\textbf{ not fulfilling }regularity condition which is $c<1$.
+
+\subsection*{\underline{Problem : 4.1}}
+\subsection*{a)}
+$T(n) = 2T(\frac{n}{2}) + n^4$\\
+Using masters theorem,\\
+$a=2, b=2, f(n) = n^4, n^{\log_{b}a}=n^{\log_{2}2}=n$\\
+Since, $f(n) = \Omega(n^{\log_{2}2 + \epsilon}), \epsilon=3$\\
+Case-3 applies, Let's prove regularity condition for $f(n)$, for sufficient large value of $n$ and $c<1$.\\
+$af(\frac{n}{b}) = 2(\frac{n}{2})^4 = \frac{n^4}{8} \le c \cdot f(n)$\\
+As $f(n)=n^4$, We can take $c=\frac{1}{8}$ which is less than 1.\\
+So, by case-3 the solution to the recurrence is,
+$$T(n) = \Theta (f(n)) = \Theta(n^4)$$
+
+\subsection*{b)}
+$T(n) = T(\frac{7n}{10}) + n$\\
+Using masters theorem,\\
+$a=1, b=\frac{10}{7}, f(n) = n, n^{\log_{b}a}=n^{\log_{\frac{10}{7}}1}=0$\\
+Since, $f(n) = \Omega(n^{\log_{\frac{10}{7}}1 + \epsilon}), \epsilon=1$\\
+Case-3 applies, Let's prove regularity condition for $f(n)$, for sufficient large value of $n$ and $c<1$.\\
+$af(\frac{n}{b}) = 1 \cdot(\frac{7n}{10}) = \frac{7}{10}n \le c \cdot f(n)$\\
+As $f(n)=n$, We can take $c=\frac{7}{10}$ which is less than 1.\\
+So, by case-3 the solution to the recurrence is,
+$$T(n) = \Theta (f(n)) = \Theta(n)$$
+
+\subsection*{c)}
+$T(n) = 16T(\frac{n}{4}) + n^2$\\
+Using masters theorem,\\
+$a=16, b=4, f(n) = n^2, n^{\log_{b}a}=n^{\log_{4}16}=n^2$\\
+Case-2 applies,Since,\\
+$f(n)=\Theta(n^{\log_{4}16}) =\Theta(n^2)$
+Thus, By case-2 the solution to the recurrence is,
+$$T(n) = \Theta (n^{\log_{b}a} \lg n) = \Theta(n^2 \lg n)$$
+
+\subsection*{d)}
+$T(n) =7 T(\frac{n}{3}) + n^2$\\
+By master theorem,\\
+$a=7, b=3, f(n) = n^2, n^{\log_{b}a}=n^{\log_{3}7} \approx n^{1.77}$\\
+Since, $f(n)= \Omega(n^{\log_{3}7 + \epsilon}), \epsilon \approx 0.23$\\
+Case-3 applies, Let's prove regularity condition for $f(n)$, for sufficient large value of $n$ and $c<1$.\\
+$af(\frac{n}{b}) = 7\cdot(\frac{n}{3})^2 = \frac{7}{9}n^2 \le c \cdot f(n)$\\
+As $f(n)=n^2$, We can take $c=\frac{7}{9}$ which is less than 1.\\
+So, by case-3 the solution to the recurrence is,
+$$T(n) = \Theta (f(n)) = \Theta(n^2)$$
+
+\subsection*{e)}
+$T(n) =7 T(\frac{n}{2}) + n^2$\\
+By master theorem,\\
+$a=7, b=2, f(n) = n^2, n^{\log_{b}a}=n^{\log_{2}7} \approx n^{2.8}$\\
+Since, $f(n)=O(n^{\log_{2}7 - \epsilon}), \epsilon \approx 0.8$\\
+We can apply case-1,
+$$T(n) = \Theta (n^{\log_{b}a}) = \Theta(n^{\lg 7})$$
+
+\subsection*{f)}
+$T(n) =2 T(\frac{n}{4}) + \sqrt{n}$\\
+By master theorem,\\
+$a=2, b=4, f(n) = \sqrt{n}, n^{\log_{b}a}=n^{\log_{4}2} = n^{\frac{1}{2}}$\\
+case-2 applies, Since,\\
+$f(n)= \Theta(n^{\log_{b}a}) = \Theta(n^\frac{1}{2})$
+Thus, solution to the recurrence is,
+$$T(n) = \Theta (n^{\log_{b}a} \lg n) = \Theta (\sqrt{n} \lg n)$$
+
+\subsection*{g)}
+$T(n)= T(n-2)+n^2$\\
+By applying counting method here,
+At $0^{\text{th}}$ step, the recurrence result is $\implies n^2$.\\
+Therefore,\\
+Step \,\,\,\,\, Result\\
+$0^{\text{th}} \implies n^2$\\
+$1^{\text{st}} \implies (n-2)^2$\\
+$2^{\text{nd}} \implies (n-4)^2$\\
+.\\
+.\\  
+$k^{\text{th}} \implies (n-2(k))^2 =0 $ Because, recurrence will over at that step. So the recurrence value should be 0 at $k^{\text{th}}$ step. \\
+Therefore, by solving above equation we will get $k=\frac{n}{2}$.
+So, the solution of the recurrence is,
+$$T(n) = n^2 + n^2 + n^2 +....+(k^{\text{th}} time)n^2 = (\frac{n}{2})\, times\, n^2$$ Since $k=\frac{n}{2}$.
+$$T(n) = \Theta(\frac{n}{2}\cdot n^2)$$
+$$T(n) = \Theta(n^3)$$
+
+\subsection*{\underline{Problem : 4.3}}
+\subsection*{a)}
+$T(n)= 4T(\frac{n}{3}) + n\lg n$\\
+By master theorem,\\
+$a=4, b=3, f(n) = n \lg n, n^{\log_{b}a}=n^{\log_{3}4} \approx n^{1.26}$\\
+Since, $f(n)=O(n^{\log_{3}4 - \epsilon}), \epsilon \approx 0.26$\\
+We can apply case-1,
+$$T(n) = \Theta (n^{\log_{b}a}) = \Theta(n^{\log_{3}4})$$
+
+\subsection*{b)}
+$T(n)= 3T(n/3) + \frac{n}{\lg n}$\\
+By applying master theorem, \\
+$a=3 , b=3, f(n) = n/ \lg n ,  n^{\log_{b}a} = n$\\
+Let's say $f(n)= n/ \lg n = O(n)$\\
+$\therefore$ case-1 applies,\\
+Since $f(n) = n/ \lg n$ is asymptotically less than  $n^{\log_{b}a} = n$, So that $f(n) = O(n^{\log_{b}a}+\epsilon)$ will always true for some positive value of $\epsilon$ , $\epsilon > 0$\\
+$\therefore$ According to case-1 ,
+$$T(n) = \Theta ( n^{\log_{b}a}) = n $$
+
+\subsection*{c)}
+$T(n) = 4T(n/4) + n^2 \cdot \sqrt{n}$\\
+$\therefore a=4, b=2, f(n)= n^{5/2} , n^{\log_{b}a} = n^2$\\
+case-3 of master theorem applies,
+$T(n) = \Omega(n^{\log_{b}a + \epsilon}) , \epsilon = 0.5$\\
+Case-3 applies, Let's prove regularity condition for $f(n)$, for sufficient large value of $n$ and $c<1$.\\
+$af(\frac{n}{b}) = 4\cdot(\frac{n}{2})^{\frac{5}{2}} = \frac{4}{2^{5/2}} \cdot n^{5/2} \le c \cdot f(n)$\\
+As $f(n)=n^{5/2}$, We can take $c=\frac{1}{\sqrt{2}}$ which is less than 1.\\
+So, by case-3 the solution to the recurrence is,
+$$T(n) = \Theta (f(n)) = \Theta(n^2 \cdot \sqrt{n})$$
+
+\subsection*{d)}
+$T(n) =3T(\frac{n}{3} -2) + \frac{n}{2}$\\
+This recurrence is not in desired form of,\\
+$T(n) = aT(n/b) + f(n)$\\
+$\therefore $ Master theorem cannot apply.
+
+\subsection*{e)}
+$T(n) = 2T(n/2) + n/ \lg n$
+By applying master theorem, \\
+$a=2 , b=2, f(n) = n/ \lg n ,  n^{\log_{b}a} = n$\\
+Let's say $f(n)= n/ \lg n = O(n)$ ( Same as problem 4.3 b)\\
+$\therefore$ case-1 applies,\\
+Since $f(n) = n/ \lg n$ is asymptotically less than  $n^{\log_{b}a} = n$, So that $f(n) = O(n^{\log_{b}a}+\epsilon)$ will always true for some positive value of $\epsilon$ , $\epsilon > 0$\\
+$\therefore$ According to case-1 ,
+$$T(n) = \Theta ( n^{\log_{b}a}) = n $$
+
+
+\subsection*{f)}
+$T(n) = T(n/2) + T(n/4) + T(n/8) + n$\\
+This recurrence is not in desired form of,\\
+$T(n) = aT(n/b) + f(n)$\\
+$\therefore $ Master theorem cannot apply. 
+
+\subsection*{g)}
+$T(n) = T(n-1) + 1/n$
+By applying counting method here,
+At $0^{\text{th}}$ step, the recurrence result is $\implies 1/n$.\\
+Therefore,\\
+Step \,\,\,\,\, Result\\
+$0^{\text{th}} \implies 1/n$\\
+$1^{\text{st}} \implies 1/(n-1)$\\
+$2^{\text{nd}} \implies 1/(n-2)$\\
+.\\
+.\\  
+$k^{\text{th}} \implies 1/(n-k)$ The value of $n-k = 1 $ because, denominator cannot be 0. So the recurrence value should be 1 at $k^{\text{th}}$ step. \\
+$\therefore $ By solving above equation we will get $n=k-1$.
+$$\therefore T(n) = \sum_{k=1}^{n+1} \frac{1}{k} = \lg n$$
+$$\therefore T(n) = \Theta (\lg n)$$
+
+\subsection*{h)}
+$T(n) = T(n-1) + \lg n$\\
+Our recurrence not in the form of
+$$T(n) = aT(n/b) +f(n) $$
+But we can try another method like counting..\\
+At $0^{\text{th}}$ step our recurrence value will be $\lg n$.\\
+Therefore,\\
+Step \,\,\,\,\,  Result\\
+$1^{\text{th}} \implies \lg n$\\
+$2^{\text{st}} \implies \lg (n-1)$\\
+$3^{\text{nd}} \implies \lg (n-2)$\\
+.\\
+.\\  
+$k^{\text{th}} \implies \lg (n-k-1)$\\
+$\therefore n=k+1 $\\
+So the solution to the recurrence is,
+$$T(n) = (\lg n + \lg (n-1) + ....+\lg(n-k-1) = \sum_{k=1}^{n} \lg k = n\lg n$$
+$$\therefore T(n) = \Theta(n \cdot \lg n)$$
+
+\subsection*{i)}
+$T(n) = T(n-2) + \frac{1}{\lg n}$
+Our recurrence not in the form of
+$$T(n) = aT(n/b) +f(n) $$
+But we can try another method like counting..\\
+Therefore,\\
+Step \,\,\,\,\,  Result\\
+$0^{\text{th}} \implies (n-0)$\\
+$1^{\text{st}} \implies (n-2)$\\
+$2^{\text{nd}} \implies (n-4)$\\
+.\\
+.\\  
+$(k)^{\text{th}} \implies (n-2k) = 0 \implies k=\frac{n}{2}$ , So
+$$T(n) = \frac{n}{2} \, times \, \frac{1}{\lg n}$$
+$$\therefore T(n)= \Theta (\frac{n}{2} \cdot \frac{1}{\lg n}) = \Theta (\frac{n}{\lg n})$$
+
+\subsection*{j)}
+$T(n) = \sqrt{n} T(\sqrt{n}) + n$\\
+This recurrence should be in the form of,\\
+$T(n) = aT(n/b) + f(n)$ where $a \ge 1 , b > 1 $ are constant And $f(n)$ is a function. \\
+In given recurrence $a=\sqrt{n}$ is not a constant.\\
+$\therefore $ Master theorem cannot apply.
 \end{document}
