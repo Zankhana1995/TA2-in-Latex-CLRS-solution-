@@ -53,7 +53,7 @@ $$\delta(x,y) = \delta(s,x) + \delta(s,c) + \delta(c,y)$$
 From (\ref{eq1}) we know that $\delta(s,x) \le \delta(s,p)$
 $$\delta(x,y) \leq \delta(s,p) + \delta(s,c) + \delta(c,y)$$
 Now let's take $\delta(p,y) = \delta(s,c) + \delta(s,y).$ to prove that point $p$ is not on the path of diameter, though it's longest. If this equation is not true means there is no path from $p$ to $y$ which is going from $c$, and this line give us a contradiction as we have already assumed that $c$ is there in the tree.\\
-$\therefore$ the inequality of
+$\therefore$ The inequality of
 $$\delta(x,y) \le \delta(x,y) + 2 \delta(s,c) \le \delta(p,y)$$
 will be false.\\
 So our assumption of either $a$ or $b$ or both as the whose distance from $s$ is greatest. So $\delta(x,y)$ is maximal among all pairs.\\
@@ -61,7 +61,10 @@ We can solve this problem by BFS. Running BFS again and again will give us the p
 
 \section{22.3 - 13}
 Using DFS we can solve this problem, we have to make one small change in original DFS algo inside for loop of line-4 of $DFS-VISIT(G,u)$ procedure.\\
-Idea : When we are exploring adjacent edges of any vertex, if it is visited already by previous vertex means $v.color != white $ (it's grey or black) than, we can assume that another path is also exist.We can say that $G(V,E)$ is not singly connected.\\
+Idea : When we are exploring adjacent edges of any vertex, if it is visited already by previous vertex means $v.color != white $ (it's grey or black) than, we can assume that another path is also exist.We can say that $G(V,E)$ is not singly connected.
+
+\vspace{5mm}
+\noindent
 $DFS(G)$\\
 1. for each vertex $ u  \in  G.V $\\
 2. \hspace{0.7cm} $u.color = white$\\
@@ -86,7 +89,8 @@ $DFS-VISIT(G,u)$\\
 10.\hspace{1.4cm}break\\
 11. $u.color = black$\\
 12. time = time + 1\\
-13. $u.f = $ time
+13. $u.f = $ time\\
+(Reference : CLRS textbook)
 
 \vspace{5mm}
 \noindent
@@ -107,6 +111,35 @@ We can this problem by kruskal or Prim's algorithm by making some change in it. 
 This algorithm will take same time as kruskal 's algorithm which is $O(E\lg V) $ 
 time.
 
+\section{26.3 - 4}
+Neighbourhood of $X$ is defined as,
+$N(X) = \{ y \in V : (x,y) \in E ,x \in X\}$. and we have to find that there exist a perfect matching in G if and only if $|A| \leq |N(A)|$ for every subset $A \subseteq L$.\\
+We will start with proving $|A| \leq |N(A)|$ for every subset $A \subseteq L$.\\
+Since it's matching between L and R, no two vertices have matching between themselves in R, therefore, at least $|A|$ vertices in neighborhood of A which are matched with R.\\
+The number of augmented path you will find the flow will increase each time (Corollary 26.3 of CLRS textbook). \\
+For the sake of this problem if we will assume the capacity of each edge is one than flow will increase by 1 at the end of every run of ford-fulkrson (FF) algorithm. The flow should be strictly integer (Theorem 26.10 CLRS textbook).\\
+Consider given step as the proof of Hall's theorem, ( Note- FF : ford-fulkrson algorithm)
 
+\vspace{5mm}
+\noindent
+1. Run FF on $G(V,E)$ and take residual graph $G'(V',E')$ where,\\
+$V' = V \cup \{s\} \cup \{ t\} $\\
+$E' = \{ (s,u) : u \in L \} \cup \{(u,v) : (u,v) \in E \} \cup \{ (v,t) : v \in R \}.$ (Reference CLRS textbook)\\
+and $L' = L \cup \{ s\} $, $R' = R \cup \{ t\}$
 
+\vspace{5mm}
+\noindent
+2. Every time when you run FF the flow $f$ will be increased by 1 and we'll get match of one vertex $u \in L$ to corresponding $v \in R$, So no other vertex $u' \in L$ can connect to v which gives us perfect matching.
+
+\vspace{5mm}
+\noindent
+3. On the next run, if we want to find match of $u' \in L$, we have to choose augmented path which does not contain v means $v' \in R - \{ v \}$ where v' will be perfect matching for u'.
+
+\vspace{5mm}
+\noindent
+4. If the flow value $|f|$ at the end is equal to $|L|$ than we can say $\forall  u \in L $ has perfect matching.
+
+\vspace{5mm}
+\noindent
+5. Therefore, $A \subseteq L$ has at least $|A| $ neighbors and $|A| \leq |N(A)|$ so that there exist a perfect match in $G$.
 \end{document}
